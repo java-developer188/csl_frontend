@@ -1,0 +1,47 @@
+<div>
+    <h1 class="display-1" style="text-align: center;">Register Teams</h1>
+</div>
+<hr>
+<br><br>
+<c-row class="mb-3">
+    <c-col [md]="9">
+        <form cForm class="row g-3">
+            <c-col [md]="8">
+                <label cLabel for="teamName">Team Name</label>
+                <input cFormControl id="teamName" type="text" [(ngModel)]="teamObj.name" [ngModelOptions]="{standalone: true}" />
+            </c-col>
+            <!-- <c-col [md]="5">
+                <label cLabel for="inputEmail4">Tournament</label>
+                <select cSelect id="autoSizingSelect">
+                <option *ngFor="let value of values" value="1">{{value}}</option>
+              </select>
+            </c-col> -->
+            <!-- <c-col [md]="8">
+                <label cLabel for="inputEmail4">Captain Name</label>
+                <input cFormControl id="inputEmail4" type="email" />
+            </c-col>
+            <c-col [xs]="12">
+                <c-form-check>
+                    <input cFormCheckInput id="gridCheck" name="gridCheck" type="checkbox" [checked]="checkProperty" (change)="checkProperty = !checkProperty" />
+                    <label cFormCheckLabel for="gridCheck">Add players later</label>
+                </c-form-check>
+            </c-col>
+            <br>
+            <c-col [md]="8">
+                <label *ngIf="!checkProperty" cLabel for="">Add Players</label>
+                <select *ngIf="!checkProperty" cSelect id="autoSizingSelect">
+                <option *ngFor="let value of values" value="{{value}}" >{{value}}</option>
+              </select>
+            </c-col> -->
+            <c-col [xs]="12">
+                <button cButton (click)="registerTeams()" type="submit">Register</button>
+            </c-col>
+            <div class="alert" *ngIf="isRegistered">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> This is an alert box.
+            </div>
+        </form>
+    </c-col>
+    <c-col [md]="3">
+        <img src="assets/img/brand/team.png" width="250" height="250">
+    </c-col>
+</c-row>

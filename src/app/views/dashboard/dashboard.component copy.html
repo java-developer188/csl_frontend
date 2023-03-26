@@ -1,0 +1,68 @@
+<app-widgets-dropdown></app-widgets-dropdown>
+<c-card class="mb-4">
+</c-card>
+<c-row>
+  <c-col xs>
+    <c-card class="mb-4">
+      <c-card-header>Matches</c-card-header>
+      <c-card-body>
+        <table
+          [hover]="true"
+          [responsive]="true"
+          [striped]="true"
+          align="middle"
+          cTable
+          class="mb-0 border"
+        >
+          <thead cTableColor="light">
+            <tr>
+              <th class="text-center">
+                <svg cIcon name="cilPeople"></svg>
+              </th>
+              <th>Team</th>
+              <th class="text-center"></th>
+              <th class="text-center">
+                <svg cIcon name="cilPeople"></svg>
+              </th>
+              <th>Team</th>
+              <th class="">Match Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users; index as i">
+              <td class="text-center">
+                <c-avatar
+                  size="md"
+                  src="{{ user.avatar }}"
+                ></c-avatar>
+              </td>
+              <td>
+                <div>{{ user.name }}</div>
+              </td>
+              <td class="text-center">
+                vs
+              </td>
+              <td class="text-center">
+                <c-avatar
+                  size="md"
+                  src="{{ user.avatar }}"
+                  
+                ></c-avatar>
+                <!-- status="{{ user.status }}" -->
+              </td>
+              <td>
+                <div>{{ user.name }}</div>
+              </td>
+              <td>
+                26/11/2022
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>
+<c-card class="mb-4"></c-card>
+
+
