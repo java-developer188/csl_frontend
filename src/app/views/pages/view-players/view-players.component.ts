@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { cilList, cilShieldAlt } from '@coreui/icons';
 import { Player } from 'src/app/models/player/player';
 import { PlayerService } from 'src/app/services/Player/player.service';
 
@@ -9,6 +10,7 @@ import { PlayerService } from 'src/app/services/Player/player.service';
 })
 export class ViewPlayersComponent {
   searchText = '';
+  icons = { cilList, cilShieldAlt };
 
   public users = [
     {

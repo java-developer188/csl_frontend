@@ -32,6 +32,8 @@
     "@coreui/icons-angular": "~4.3.9",
     "@coreui/utils": "^1.3.1",
     "@fortawesome/angular-fontawesome": "^0.12.1",
+    "@fortawesome/fontawesome-svg-core": "^6.3.0",
+    "@fortawesome/free-solid-svg-icons": "^6.3.0",
     "chart.js": "^3.9.1",
     "ng-search-pipe": "^1.0.3",
     "ngx-perfect-scrollbar": "^10.1.1",
