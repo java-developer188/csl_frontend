@@ -12,11 +12,13 @@ export class SearchPipe implements PipeTransform {
     if(isNaN(args)){
       console.log("string");
       args = args.toLowerCase();
+      console.log(args);
 
       return value.filter((item: any) => {
       return JSON.stringify(item).toLowerCase().includes(args);
     })
     }
+
     if(!isNaN(args)){
       console.log("number");
       return value.filter((item: any) => {

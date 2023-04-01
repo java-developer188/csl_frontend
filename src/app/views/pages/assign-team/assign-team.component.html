@@ -53,7 +53,7 @@
                                     <div>{{ p.cnic }}</div>
                                 </td>
                                 <td class="text-left">
-                                    <p>{{p.playerSkills.style}}</p>
+                                    <p>{{p.playerSkills.skill}}</p>
                                 </td>
                                 <td></td>
                                 <td>
@@ -82,7 +82,7 @@
         </div>
         <div>
             <h2 *ngIf="visible">{{playerSingle.firstName}}</h2>
-            <h5 *ngIf="visible"><i>{{playerSingle.playerSkills.style}}</i></h5>
+            <h5 *ngIf="visible"><i>{{playerSingle.playerSkills.skill}}</i></h5>
         </div>
 
         <br>

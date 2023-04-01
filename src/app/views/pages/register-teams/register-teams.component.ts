@@ -26,7 +26,7 @@ export class RegisterTeamsComponent {
       console.log(res);
       this.isRegistered = true;
       this.router.navigate(['register-team']);
-      //window.location.reload();
+      window.location.reload();
     });
     
   }

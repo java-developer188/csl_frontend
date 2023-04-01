@@ -8,6 +8,7 @@
     <c-col xs>
         <c-card class="mb-4">
             <c-card-header>All Players</c-card-header>
+            <c-card-header style="text-align: right;">Total: {{ totalObjects }}</c-card-header>
             <c-card-body>
                 <!-- [(ngModel)]="searchText" -->
                 <input class="form-control" type="text" placeholder="Search" [(ngModel)]="searchText">
@@ -20,7 +21,9 @@
                             <th></th>
                             <th class="text-left">First Name</th>
                             <th class="text-left">Last Name</th>
-                            <th class="text-left">CNIC</th>
+                            <th class="text-left">Age</th>
+                            <th class="text-left">Status</th>
+                            <th class="text-left">Role</th>
                             <th class="text-left">Team</th>
                             <th></th>
                             <th></th>
@@ -28,7 +31,7 @@
                     </thead>
                     <tbody>
                         <!-- | search: searchText" -->
-                        <tr *ngFor="let p of playerObj | search: searchText">
+                        <tr *ngFor="let p of Obj | search: searchText">
                             <td></td>
                             <td class="text-left">
                                 <div>{{ p.firstName }}</div>
@@ -38,20 +41,29 @@
                                 <div>{{ p.lastName }}</div>
                             </td>
                             <td class="text-left">
-                                <div>{{ p.cnic }}</div>
+                                <div>{{ p.age }}</div>
                             </td>
-                            <td *ngIf="p.team" class="text-left">
-                                <p>{{ p.team.name }}</p>
+                            <td class="text-left">
+                                <div>{{ p.status }}</div>
                             </td>
-                            <td *ngIf="!p.team" class="text-left">
+                            <td *ngIf="p.isCaptain == 'FALSE'" class="text-left">
+                                <p> Player </p>
+                            </td>
+                            <td *ngIf="p.isCaptain == 'TRUE'" class="text-left">
+                                <p> Captain </p>
+                            </td>
+                            <td *ngIf="p.teamName" class="text-left">
+                                <p>{{ p.teamName }}</p>
+                            </td>
+                            <td *ngIf="!p.teamName" class="text-left">
                                 <p> </p>
                             </td>
                             <td></td>
                             <td>
-                                <button (click)="toggleModal(p)" style=" background-color:#4F5D73" cButton>
+                                <button (click)="toggleModal(p)" style="background-color:transparent; border: transparent;" cButton>
                                     <!-- <i class="fa fa-eye "></i> -->
                                     <!-- <i class="cil-eye"></i> -->
-                                    <svg cIcon name="cilEye" size="xl" title="Numbered List Icon"></svg>
+                                    <img src="assets/img/brand/eye.png" width="20" height="20">
                                 </button>
                                 <!-- <a href="/#/register-team "><i class="fa fa-eye "></i></a> -->
                                 <!-- <i class="fa fa-eye "></i> -->
@@ -77,7 +89,7 @@
         </div>
         <div>
             <h2 *ngIf="visible">{{playerSingle.firstName}}</h2>
-            <h5 *ngIf="visible"><i>{{playerSingle.playerSkills.style}}</i></h5>
+            <h5 *ngIf="visible"><i>{{playerSingle.skill}}</i></h5>
         </div>
         <div class="row">
             <div class="column">

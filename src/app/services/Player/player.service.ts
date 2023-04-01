@@ -11,11 +11,11 @@ export class PlayerService {
   constructor(private http:HttpClient) { }
 
   public registerPlayer(player:Player):Observable<any>{
-    return this.http.post("http://localhost:8080/api/player/save",player);
+    return this.http.post("http://localhost:8080/api/v1/player/create",player);
   }
 
   public getPlayerList():Observable<any>{
-    return this.http.get("http://localhost:8080/api/player/get");
+    return this.http.get("http://localhost:8080/api/v1/player/get");
   }
 
   public addTeam(player: Player):Observable<any>{

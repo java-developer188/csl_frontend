@@ -14,26 +14,31 @@
                 <label cLabel for="lastName">Last Name</label>
                 <input cFormControl id="lastName" type="text" [(ngModel)]="playerObj.lastName" [ngModelOptions]="{standalone: true}">
             </c-col>
-            <c-col [md]="10">
-                <label cLabel for="CNIC">CNIC</label>
-                <input cFormControl id="CNIC" type="number" [(ngModel)]="playerObj.cnic" [ngModelOptions]="{standalone: true}">
+            <c-col [md]="5">
+                <label cLabel for="lastName">Father Name</label>
+                <input cFormControl id="fatherName" type="text" [(ngModel)]="playerObj.fatherName" [ngModelOptions]="{standalone: true}">
             </c-col>
+            <c-col [md]="5">
+                <label cLabel for="Age">Age</label>
+                <input cFormControl id="Age" type="number" [(ngModel)]="playerObj.age" [ngModelOptions]="{standalone: true}">
+            </c-col>
+
             <c-col [xs]="10">
                 <fieldset class="row mb-3">
                     <legend cLabel="col" cCol [sm]="2" class="pt-0">Player Type</legend>
                     <c-col [sm]="10">
                         <c-form-check>
-                            <input cFormCheckInput checked id="gridRadios1" name="gridRadios" type="radio" value="Attacker" [(ngModel)]="playerObj.playerSkills.style" [ngModelOptions]="{standalone: true}">
+                            <input cFormCheckInput checked id="gridRadios1" name="gridRadios" type="radio" value="1" [(ngModel)]="playerObj.playerSkills.id" [ngModelOptions]="{standalone: true}">
                             <label cFormCheckLabel for="gridRadios1">Attacker</label>
                         </c-form-check>
                         <c-form-check>
-                            <input cFormCheckInput id="gridRadios2" name="gridRadios" type="radio" value="Defender" [(ngModel)]="playerObj.playerSkills.style" [ngModelOptions]="{standalone: true}">
+                            <input cFormCheckInput id="gridRadios2" name="gridRadios" type="radio" value="2" [(ngModel)]="playerObj.playerSkills.id" [ngModelOptions]="{standalone: true}">
                             <label cFormCheckLabel for="gridRadios2">Defender</label>
                         </c-form-check>
-                        <c-form-check>
+                        <!-- <c-form-check>
                             <input cFormCheckInput id="gridRadios3" name="gridRadios" type="radio" value="AllRounder" [(ngModel)]="playerObj.playerSkills.style" [ngModelOptions]="{standalone: true}">
                             <label cFormCheckLabel for="gridRadios3">All rounder</label>
-                        </c-form-check>
+                        </c-form-check> -->
                     </c-col>
                 </fieldset>
             </c-col>

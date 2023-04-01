@@ -5,14 +5,18 @@ export class Player {
     id!: number
     firstName!: String
     lastName!: String
-    cnic!: number
+    fatherName!: String
+    age!: number
+    status!: String
+    isCaptain!:String
     playerSkills!: PlayerSkills
     team!: Team
-  myPlayer: any
+
     constructor(){
         this.playerSkills=new PlayerSkills();
-        this.team=new Team();
-        this.team.name="";
+        
+        // this.team=new Team();
+        // this.team.name="";
     }
 
 }
