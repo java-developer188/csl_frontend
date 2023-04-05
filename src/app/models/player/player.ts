@@ -1,5 +1,6 @@
 import { PlayerSkills } from "../player_skills/playerskills"
 import { Team } from "../teams/teams"
+import { Division } from "../division/division"
 
 export class Player {
     id!: number
@@ -11,6 +12,7 @@ export class Player {
     isCaptain!:String
     playerSkills!: PlayerSkills
     team!: Team
+    division!: Division
 
     constructor(){
         this.playerSkills=new PlayerSkills();

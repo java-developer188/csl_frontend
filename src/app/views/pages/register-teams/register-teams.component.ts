@@ -9,8 +9,6 @@ import {TeamService} from '../../../services/Team/team.service';
   styleUrls: ['./register-teams.component.scss']
 })
 export class RegisterTeamsComponent {
-  values = ["one","two","three"];
-  count = 0;
   checkProperty = false;
   isRegistered = false;
 
@@ -18,6 +16,7 @@ export class RegisterTeamsComponent {
 
   constructor(private teamService: TeamService, private router: Router ){
     this.teamObj=new Team();
+    this.teamObj.setStatus("ACTIVE");
   }
 
   registerTeams(){
@@ -25,8 +24,12 @@ export class RegisterTeamsComponent {
     this.teamService.registerTeam(this.teamObj).subscribe(res =>{
       console.log(res);
       this.isRegistered = true;
-      this.router.navigate(['register-team']);
-      window.location.reload();
+      if(res.isError==false){
+        alert("Team "+res.data.name+" added successfully");
+      }
+      else{
+        alert("Error saving team");
+      }
     });
     
   }

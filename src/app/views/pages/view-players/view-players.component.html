@@ -19,12 +19,13 @@
                                 <svg cIcon name="cilPeople"></svg>
                             </th> -->
                             <th></th>
-                            <th class="text-left">First Name</th>
-                            <th class="text-left">Last Name</th>
-                            <th class="text-left">Age</th>
-                            <th class="text-left">Status</th>
-                            <th class="text-left">Role</th>
-                            <th class="text-left">Team</th>
+                            <th class="text-center">First Name</th>
+                            <th class="text-center">Last Name</th>
+                            <th class="text-center">Division</th>
+                            <th class="text-center">Age</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">Role</th>
+                            <th class="text-center">Team</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -33,26 +34,32 @@
                         <!-- | search: searchText" -->
                         <tr *ngFor="let p of Obj | search: searchText">
                             <td></td>
-                            <td class="text-left">
+                            <td class="text-center">
                                 <div>{{ p.firstName }}</div>
                                 <!-- <c-avatar size="md" src="{{ user.avatar }}"></c-avatar> -->
                             </td>
-                            <td class="text-left">
+                            <td class="text-center">
                                 <div>{{ p.lastName }}</div>
                             </td>
-                            <td class="text-left">
+                            <td class="text-center">
+                                <div>{{ p.divisionName }}</div>
+                            </td>
+                            <td class="text-center">
                                 <div>{{ p.age }}</div>
                             </td>
-                            <td class="text-left">
+                            <td class="text-center">
                                 <div>{{ p.status }}</div>
                             </td>
-                            <td *ngIf="p.isCaptain == 'FALSE'" class="text-left">
+                            <td class="text-center">
+                                <div>{{ p.isCaptain }}</div>
+                            </td>
+                            <!-- <td *ngIf="p.isCaptain == 'FALSE'" class="text-left">
                                 <p> Player </p>
                             </td>
                             <td *ngIf="p.isCaptain == 'TRUE'" class="text-left">
                                 <p> Captain </p>
-                            </td>
-                            <td *ngIf="p.teamName" class="text-left">
+                            </td> -->
+                            <td *ngIf="p.teamName" class="text-center">
                                 <p>{{ p.teamName }}</p>
                             </td>
                             <td *ngIf="!p.teamName" class="text-left">

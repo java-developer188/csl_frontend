@@ -10,6 +10,10 @@
                 <label cLabel for="teamName">Team Name</label>
                 <input cFormControl id="teamName" type="text" [(ngModel)]="teamObj.name" [ngModelOptions]="{standalone: true}" />
             </c-col>
+            <c-col [md]="8">
+                <label cLabel for="teamDesc">Team Description</label>
+                <textarea cFormControl id="teamDesc" type="text" [(ngModel)]="teamObj.description" [ngModelOptions]="{standalone: true}"></textarea>
+            </c-col>
             <!-- <c-col [md]="5">
                 <label cLabel for="inputEmail4">Tournament</label>
                 <select cSelect id="autoSizingSelect">
@@ -36,9 +40,9 @@
             <c-col [xs]="12">
                 <button cButton (click)="registerTeams()" type="submit">Register</button>
             </c-col>
-            <div class="alert" *ngIf="isRegistered">
+            <!-- <div class="alert" *ngIf="isRegistered">
                 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> This is an alert box.
-            </div>
+            </div> -->
         </form>
     </c-col>
     <c-col [md]="3">

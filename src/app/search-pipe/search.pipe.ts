@@ -3,6 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({
   name: 'search'
 })
+
 export class SearchPipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
@@ -10,17 +11,13 @@ export class SearchPipe implements PipeTransform {
     if (!args) return value;
 
     if(isNaN(args)){
-      console.log("string");
       args = args.toLowerCase();
-      console.log(args);
-
       return value.filter((item: any) => {
       return JSON.stringify(item).toLowerCase().includes(args);
     })
     }
 
     if(!isNaN(args)){
-      console.log("number");
       return value.filter((item: any) => {
       return JSON.stringify(item).includes(args);
       })

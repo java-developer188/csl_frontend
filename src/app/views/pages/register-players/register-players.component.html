@@ -6,21 +6,29 @@
 <c-row class="mb-3">
     <c-col [md]="9">
         <form cForm class="row g-3">
-            <c-col [md]="5">
+            <c-col [md]="4">
                 <label cLabel for="firstName">First Name</label>
                 <input cFormControl id="firstName" type="text" [(ngModel)]="playerObj.firstName" [ngModelOptions]="{standalone: true}">
             </c-col>
-            <c-col [md]="5">
+            <c-col [md]="4">
                 <label cLabel for="lastName">Last Name</label>
                 <input cFormControl id="lastName" type="text" [(ngModel)]="playerObj.lastName" [ngModelOptions]="{standalone: true}">
             </c-col>
-            <c-col [md]="5">
-                <label cLabel for="lastName">Father Name</label>
-                <input cFormControl id="fatherName" type="text" [(ngModel)]="playerObj.fatherName" [ngModelOptions]="{standalone: true}">
-            </c-col>
-            <c-col [md]="5">
+            <c-col [md]="4">
                 <label cLabel for="Age">Age</label>
                 <input cFormControl id="Age" type="number" [(ngModel)]="playerObj.age" [ngModelOptions]="{standalone: true}">
+            </c-col>
+            <c-col [md]="12">
+                <label cLabel for="">Choose Division</label>
+                <select cSelect id="autoSizingSelect" [(ngModel)]="selectedDivision.id" (change)="myFunction(selectedDivision)" [ngModelOptions]="{standalone: true}">
+                    <option *ngIf="isSelected == false" value="Select Division" disabled selected>Select Division</option>
+                    <option *ngFor="let value of Obj" value="{{value.id}}">{{value.divisionName}}
+                    </option>
+                        <option style="background-color: rgb(179, 179, 248);" value="-1" (onclick)="toggleModal()">
+                            <!-- <button (click)="toggleModal()" style="background-color:transparent; border: transparent;" cButton></button> -->
+                            Add Another Division
+                        </option>
+                </select>
             </c-col>
 
             <c-col [xs]="10">
@@ -65,3 +73,22 @@
         <img src="assets/img/brand/foosball1.png" width="250" height="250">
     </c-col>
 </c-row>
+
+<c-modal id="liveDemoModal" alignment="center" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
+    <c-modal-header>
+        <h4 *ngIf="visible" cModalTitle>Adding new Division</h4>
+        <button (click)="toggleModalAgain()" cButtonClose></button>
+    </c-modal-header>
+    <c-modal-body>
+        <!-- <c-col [md]="4"> -->
+        <label cLabel for="divisionName">Division Name</label>
+        <input cFormControl id="divisionName" type="text" [(ngModel)]="selectedDivision.divisionName" [ngModelOptions]="{standalone: true}">
+        <!-- </c-col> -->
+    </c-modal-body>
+    <c-modal-footer>
+
+        <button (click)="toggleModalAgainAndSubmitDivision(selectedDivision)" cButton color="primary">
+        Submit
+      </button>
+    </c-modal-footer>
+</c-modal>
