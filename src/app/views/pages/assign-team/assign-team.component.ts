@@ -3,6 +3,8 @@ import { Player } from 'src/app/models/player/player';
 import { Team } from 'src/app/models/teams/teams';
 import { PlayerService } from 'src/app/services/Player/player.service';
 import { TeamService } from 'src/app/services/Team/team.service';
+import {TeamResponseModel} from 'src/app/models/teamResponseModel/team-response-model';
+import { PlayerResponseModel } from 'src/app/models/playerResponseModel/player-response-model';
 
 @Component({
   selector: 'app-assign-team',
@@ -13,10 +15,10 @@ import { TeamService } from 'src/app/services/Team/team.service';
 export class AssignTeamComponent {
   values = ["one","two","three"];
   searchText = '';
-  playerObj : Array<Player> = [];
-  teamObj: Array<Team> = [];
+  playerObj : Array<PlayerResponseModel> = [];
+  teamObj: Array<TeamResponseModel> = [];
   selectedTeam : Team;
-  //Team1 : Team
+  selectedPlayer !: Player;
   
   constructor( private teamService : TeamService, private service: PlayerService){
     this.selectedTeam=new Team();
@@ -28,33 +30,38 @@ export class AssignTeamComponent {
   }
 
   ngOnInit(){
-      this.service.getPlayerList().subscribe(players=>{
-      this.playerObj = players;
-      console.log(this.playerObj);
-    });
-    this.teamService.getTeamList().subscribe(teams=>{
-      this.teamObj = teams;
+    this.teamService.getTeamList().subscribe(res=>{
+      this.teamObj = res.data;
       console.log(this.teamObj);
-    }) 
+    });
+      this.service.getPlayerList().subscribe(res=>{
+        for(let playerObject of res.data){
+          if(playerObject.teamName == null){
+            this.playerObj = playerObject;
+          }
+        }
+        console.log(this.playerObj);
+    });
+     
   }
 
   myFunc(selTeam : Team){
     console.log(selTeam);
   }
 
-  playerSingle !: Player;
+  
   //for view modal
   public visible = false;
 
   toggleModal(player: Player) {
     this.visible = !this.visible;
     console.log(player);
-    this.playerSingle=player;
-    console.log(this.playerSingle)
+    this.selectedPlayer=player;
+    console.log(this.selectedPlayer)
   }
 
   toggleModalAgain(myPlayer : Player) {
-    console.log("selectedTeam"+this.selectedTeam.name)
+    console.log("selectedTeam"+this.selectedTeam._name)
 
     if(myPlayer.team == null){
       myPlayer.team = new Team();

@@ -16,7 +16,7 @@ export class RegisterTeamsComponent {
 
   constructor(private teamService: TeamService, private router: Router ){
     this.teamObj=new Team();
-    this.teamObj.setStatus("ACTIVE");
+    this.teamObj._status = "ACTIVE";
   }
 
   registerTeams(){

@@ -18,12 +18,29 @@
                 <label cLabel for="Age">Age</label>
                 <input cFormControl id="Age" type="number" [(ngModel)]="playerObj.age" [ngModelOptions]="{standalone: true}">
             </c-col>
-            <c-col [md]="12">
+
+            <c-col [md]="12" *ngIf="isSelectedDiv == false">
                 <label cLabel for="">Choose Division</label>
                 <select cSelect id="autoSizingSelect" [(ngModel)]="selectedDivision.id" (change)="myFunction(selectedDivision)" [ngModelOptions]="{standalone: true}">
-                    <option *ngIf="isSelected == false" value="Select Division" disabled selected>Select Division</option>
-                    <option *ngFor="let value of Obj" value="{{value.id}}">{{value.divisionName}}
-                    </option>
+                    <option value="Select Division" [selected] = "true">Select Division</option>
+                    <!-- <div *ngIf="isSelectedDiv == true"> -->
+                        <option *ngFor="let value of Obj" value="{{value.id}}" >{{value.divisionName}}
+                        </option>
+                    <!-- </div> -->
+                        <option style="background-color: rgb(179, 179, 248);" value="-1" (onclick)="toggleModal()">
+                            <!-- <button (click)="toggleModal()" style="background-color:transparent; border: transparent;" cButton></button> -->
+                            Add Another Division
+                        </option>
+                </select>
+            </c-col>
+            <c-col [md]="12" *ngIf="isSelectedDiv == true">
+                <label cLabel for="">Choose Division</label>
+                <select cSelect id="autoSizingSelect" [(ngModel)]="selectedDivision.id" (change)="myFunction(selectedDivision)" [ngModelOptions]="{standalone: true}">
+                    <option value="Select Division" disabled>Select Division</option>
+                    <!-- <div *ngIf="isSelectedDiv == true"> -->
+                        <option *ngFor="let value of Obj" value="{{value.id}}" [selected] = "true">{{value.divisionName}}
+                        </option>
+                    <!-- </div> -->
                         <option style="background-color: rgb(179, 179, 248);" value="-1" (onclick)="toggleModal()">
                             <!-- <button (click)="toggleModal()" style="background-color:transparent; border: transparent;" cButton></button> -->
                             Add Another Division

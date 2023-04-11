@@ -6,7 +6,8 @@
     <c-col [md]="2"></c-col>
     <c-col [md]="8">
         <label cLabel for="">Choose Team</label>
-        <select cSelect id="autoSizingSelect" [(ngModel)]="selectedTeam.name" (onchange)="myFunc(selectedTeam)">
+        <select cSelect id="autoSizingSelect" [(ngModel)]="selectedTeam._name" (onchange)="myFunc(selectedTeam)">
+            <option value="Choose Team" ng-reflect-value="Choose Team" selected disabled>Choose Team</option>
             <option *ngFor="let value of teamObj" value="{{value.name}}" >{{value.name}}
                 <!-- <ng-container *ngIf="value!=null"></ng-container> -->
             </option>
@@ -15,10 +16,10 @@
     <c-col [md]="2"></c-col>
 </c-row>
 
-<c-row *ngIf="selectedTeam.name" class="mt-4">
+<c-row *ngIf="selectedTeam._name" class="mt-4">
     <c-col xs>
         <c-card class="mb-4">
-            <c-card-header>Add Players in Team: <b>{{selectedTeam.name}}</b> </c-card-header>
+            <c-card-header>Add Players in Team: <b>{{selectedTeam._name}}</b> </c-card-header>
             <c-card-body>
                 <!-- [(ngModel)]="searchText" -->
                 <input class="form-control" type="text" placeholder="Search" [(ngModel)]="searchText">
@@ -29,10 +30,10 @@
                                 <svg cIcon name="cilPeople"></svg>
                             </th> -->
                             <th></th>
-                            <th class="text-left">First Name</th>
-                            <th class="text-left">Last Name</th>
-                            <th class="text-left">CNIC</th>
-                            <th class="text-left">Style</th>
+                            <th class="text-center">First Name</th>
+                            <th class="text-center">Last Name</th>
+                            <th class="text-center">Division</th>
+                            <th class="text-center">Age</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -40,28 +41,30 @@
                     <tbody>
                         <!-- | search: searchText" -->
                         <tr *ngFor="let p of playerObj | search: searchText">
-                            <ng-container *ngIf="!p.team">
-                                <td></td>
-                                <td class="text-left">
-                                    <div>{{ p.firstName }}</div>
-                                    <!-- <c-avatar size="md" src="{{ user.avatar }}"></c-avatar> -->
-                                </td>
-                                <td class="text-left">
-                                    <div>{{ p.lastName }}</div>
-                                </td>
-                                <td class="text-left">
-                                    <div>{{ p.cnic }}</div>
-                                </td>
-                                <td class="text-left">
-                                    <p>{{p.playerSkills.skill}}</p>
-                                </td>
-                                <td></td>
-                                <td>
-                                    <button (click)="toggleModal(p)" style=" background-color:#4F5D73" cButton>Add Player</button>
-                                    <!-- <a href="/#/register-team"><i class="fa fa-eye"></i></a> -->
-                                    <!-- <i class="fa fa-eye"></i> -->
-                                </td>
-                            </ng-container>
+                            <td></td>
+                            <td class="text-center">
+                                <div>{{ p.firstName }}</div>
+                                <!-- <c-avatar size="md" src="{{ user.avatar }}"></c-avatar> -->
+                            </td>
+                            <td class="text-center">
+                                <div>{{ p.lastName }}</div>
+                            </td>
+                            <td class="text-center">
+                                <div>{{ p.divisionName }}</div>
+                            </td>
+                            <td class="text-center">
+                                <div>{{ p.age }}</div>
+                            </td>
+                            <td></td>
+                            <td>
+                                <button (click)="toggleModal(p)" style="background-color:transparent; border: transparent;" cButton>
+                                    <!-- <i class="fa fa-eye "></i> -->
+                                    <!-- <i class="cil-eye"></i> -->
+                                    <img src="assets/img/brand/eye.png" width="20" height="20">
+                                </button>
+                                <!-- <a href="/#/register-team "><i class="fa fa-eye "></i></a> -->
+                                <!-- <i class="fa fa-eye "></i> -->
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -72,7 +75,7 @@
 
 <c-modal id="liveDemoModal" alignment="center" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
     <c-modal-header>
-        <h4 *ngIf="visible" cModalTitle>Fooseball Player: {{playerSingle.firstName}}</h4>
+        <h4 *ngIf="visible" cModalTitle>Fooseball Player: {{selectedPlayer.firstName}}</h4>
         <button (click)="toggleModalAgain_close()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
@@ -81,12 +84,12 @@
             <img src="assets/img/brand/athlete.png" width="150" height="150" alt="Picture of Theodore Roosevelt">
         </div>
         <div>
-            <h2 *ngIf="visible">{{playerSingle.firstName}}</h2>
-            <h5 *ngIf="visible"><i>{{playerSingle.playerSkills.skill}}</i></h5>
+            <h2 *ngIf="visible">{{selectedPlayer.firstName}}</h2>
+            <h5 *ngIf="visible"><i>{{selectedPlayer.playerSkills.skill}}</i></h5>
         </div>
 
         <br>
-        <h6 *ngIf="visible">Are you sure you want to add <b>{{playerSingle.firstName}}</b> to <b>{{selectedTeam.name}} ?</b></h6>
+        <h6 *ngIf="visible">Are you sure you want to add <b>{{selectedPlayer.firstName}}</b> to <b>{{selectedTeam._name}} ?</b></h6>
         <!-- <div class="row">
             <div class="column">
                 <div class="details">
@@ -115,7 +118,7 @@
         </div> -->
     </c-modal-body>
     <c-modal-footer>
-        <button (click)="toggleModalAgain(playerSingle)" cButton color="primary"> 
+        <button (click)="toggleModalAgain(selectedPlayer)" cButton color="primary"> 
         Add
       </button>
 

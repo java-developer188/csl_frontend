@@ -8,11 +8,11 @@
         <form cForm class="row g-3">
             <c-col [md]="8">
                 <label cLabel for="teamName">Team Name</label>
-                <input cFormControl id="teamName" type="text" [(ngModel)]="teamObj.name" [ngModelOptions]="{standalone: true}" />
+                <input cFormControl id="teamName" type="text" [(ngModel)]="teamObj._name" [ngModelOptions]="{standalone: true}" />
             </c-col>
             <c-col [md]="8">
                 <label cLabel for="teamDesc">Team Description</label>
-                <textarea cFormControl id="teamDesc" type="text" [(ngModel)]="teamObj.description" [ngModelOptions]="{standalone: true}"></textarea>
+                <textarea cFormControl id="teamDesc" type="text" [(ngModel)]="teamObj._description" [ngModelOptions]="{standalone: true}"></textarea>
             </c-col>
             <!-- <c-col [md]="5">
                 <label cLabel for="inputEmail4">Tournament</label>

@@ -1,23 +1,39 @@
 import { Player } from "../player/player"
 
 export class Team {
-    id!: number 
-    name!: String
-    description!: String
-    private status!: String
+    private id!: number 
+    private name!: string
+    private description!: string
+    private status!: string
 
 
-    public setID(id: number) : Team{
-        this.id=id;
-        return this;
+    set _id(value : number){
+        this.id = value;
     }
 
-    public setName(name: String) : Team{
-        this.name=name;
-        return this;
+    get _id(): number{
+        return this.id;
     }
 
-    public setStatus(status: String){
-        this.status= status;
+    set _description(value : string){
+        this.description=value;
     }
+    get _description() : string{
+        return this.description;
+    }
+
+    set _name(value: string){
+        this.name = value;
+    }
+    get _name(): string{
+        return this.name;
+    }
+
+    set _status(value : string){
+        this.status=value;
+    }
+    get _status():string{
+        return this.status;
+    }
+
 }

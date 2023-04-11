@@ -15,13 +15,17 @@ export class RegisterPlayersComponent {
   playerObj : Player
   Obj : Array<Division> = [];
   selectedDivision !: Division
-  isSelected = false
+ 
+  isSelectedDiv !: boolean;
 
   constructor(private router: Router , private service: PlayerService, private serviceDivision: DivisionService){ //dependency injection -- using service in constructor - private variable makes it accessibe thorugh out the class
     this.playerObj = new Player();
     this.playerObj.isCaptain="0";
     this.playerObj.status="1";
     this.selectedDivision = new Division();
+    this.isSelectedDiv = false;
+    ///console.log(this.isSelectedDiv);
+    
   }
 
   ngOnInit(){
@@ -35,7 +39,6 @@ export class RegisterPlayersComponent {
   myFunction(div : Division){
     console.log("Hello");
     console.log(div.id);
-    this.isSelected = true;
     if(div.id==-1){
       this.toggleModal();
     }
@@ -70,10 +73,12 @@ export class RegisterPlayersComponent {
 
   toggleModalAgainAndSubmitDivision(division: Division){
     this.visible = !this.visible;
+    this.isSelectedDiv = true;
+    console.log(this.isSelectedDiv+"newest division selected");
     console.log(division);
     this.serviceDivision.addDivision(division).subscribe(res=>{
     console.log(res);
-    this.isSelected = false;
+   
       // if(res.isError==false){
       //   alert("Player "+res.data.firstName+" "+res.data.lastName+ " added successfully");
       // }
