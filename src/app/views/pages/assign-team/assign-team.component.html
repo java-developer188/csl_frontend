@@ -6,9 +6,9 @@
     <c-col [md]="2"></c-col>
     <c-col [md]="8">
         <label cLabel for="">Choose Team</label>
-        <select cSelect id="autoSizingSelect" [(ngModel)]="selectedTeam._name" (onchange)="myFunc(selectedTeam)">
+        <select cSelect id="autoSizingSelect" [(ngModel)]="selectedTeam._id" (ngModelChange)="myFunc(selectedTeam)">
             <option value="Choose Team" ng-reflect-value="Choose Team" selected disabled>Choose Team</option>
-            <option *ngFor="let value of teamObj" value="{{value.name}}" >{{value.name}}
+            <option *ngFor="let value of teamObj" value="{{value.id}}" >{{value.name}}
                 <!-- <ng-container *ngIf="value!=null"></ng-container> -->
             </option>
         </select>
@@ -34,37 +34,45 @@
                             <th class="text-center">Last Name</th>
                             <th class="text-center">Division</th>
                             <th class="text-center">Age</th>
+                            <th class="text-center">Status</th>
+
+
                             <th></th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <!-- | search: searchText" -->
-                        <tr *ngFor="let p of playerObj | search: searchText">
-                            <td></td>
-                            <td class="text-center">
-                                <div>{{ p.firstName }}</div>
-                                <!-- <c-avatar size="md" src="{{ user.avatar }}"></c-avatar> -->
-                            </td>
-                            <td class="text-center">
-                                <div>{{ p.lastName }}</div>
-                            </td>
-                            <td class="text-center">
-                                <div>{{ p.divisionName }}</div>
-                            </td>
-                            <td class="text-center">
-                                <div>{{ p.age }}</div>
-                            </td>
-                            <td></td>
-                            <td>
-                                <button (click)="toggleModal(p)" style="background-color:transparent; border: transparent;" cButton>
+                        <tr *ngFor="let p of Obj | search: searchText">
+                            <ng-container *ngIf="p != undefined">
+                                <td></td>
+                                <td class="text-center">
+                                    <div>{{ p.firstName }}</div>
+                                    <!-- <c-avatar size="md" src="{{ user.avatar }}"></c-avatar> -->
+                                </td>
+                                <td class="text-center">
+                                    <div>{{ p.lastName }}</div>
+                                </td>
+                                <td class="text-center">
+                                    <div>{{ p.divisionName }}</div>
+                                </td>
+                                <td class="text-center">
+                                    <div>{{ p.age }}</div>
+                                </td>
+                                <td class="text-center">
+                                    <div>{{ p.status }}</div>
+                                </td>
+                                <td></td>
+                                <td>
+                                    <button (click)="toggleModal(p,Obj.indexOf(p))" style="background-color:transparent; border: transparent;" cButton>
                                     <!-- <i class="fa fa-eye "></i> -->
                                     <!-- <i class="cil-eye"></i> -->
                                     <img src="assets/img/brand/eye.png" width="20" height="20">
                                 </button>
-                                <!-- <a href="/#/register-team "><i class="fa fa-eye "></i></a> -->
-                                <!-- <i class="fa fa-eye "></i> -->
-                            </td>
+                                    <!-- <a href="/#/register-team "><i class="fa fa-eye "></i></a> -->
+                                    <!-- <i class="fa fa-eye "></i> -->
+                                </td>
+                            </ng-container>
                         </tr>
                     </tbody>
                 </table>
@@ -85,7 +93,7 @@
         </div>
         <div>
             <h2 *ngIf="visible">{{selectedPlayer.firstName}}</h2>
-            <h5 *ngIf="visible"><i>{{selectedPlayer.playerSkills.skill}}</i></h5>
+            <h5 *ngIf="visible"><i>{{selectedPlayer.skill}}</i></h5>
         </div>
 
         <br>

@@ -6,6 +6,6 @@ export class PlayerResponseModel {
     status!: String
     isCaptain!: String
     skill!: String
-    teamName!: String
+    teamName!: string
     divisionName!: String
 }

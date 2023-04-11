@@ -1,6 +1,6 @@
 export class TeamResponseModel {
     id!: number
-    name!: String
+    name!: string
     description!: String
     status !: String
     sport !: String

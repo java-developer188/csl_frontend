@@ -19,6 +19,6 @@ export class PlayerService {
   }
 
   public addTeam(player: Player):Observable<any>{
-    return this.http.put("http://localhost:8080/api/player/update_player",player);
+    return this.http.put("http://localhost:8080/api/v1/player/update",player);
   }
 }

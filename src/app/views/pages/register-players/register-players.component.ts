@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import {PlayerService} from '../../../services/Player/player.service';
 import {DivisionService} from '../../../services/Division/division.service'
 import { Division } from 'src/app/models/division/division';
+import { PlayerSkills } from 'src/app/models/player_skills/playerskills';
 
 @Component({
   selector: 'app-register-players',
@@ -15,11 +16,11 @@ export class RegisterPlayersComponent {
   playerObj : Player
   Obj : Array<Division> = [];
   selectedDivision !: Division
- 
   isSelectedDiv !: boolean;
 
   constructor(private router: Router , private service: PlayerService, private serviceDivision: DivisionService){ //dependency injection -- using service in constructor - private variable makes it accessibe thorugh out the class
     this.playerObj = new Player();
+    this.playerObj.playerSkills=new PlayerSkills();
     this.playerObj.isCaptain="0";
     this.playerObj.status="1";
     this.selectedDivision = new Division();

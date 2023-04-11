@@ -14,11 +14,4 @@ export class Player {
     team!: Team
     division!: Division
 
-    constructor(){
-        this.playerSkills=new PlayerSkills();
-        
-        // this.team=new Team();
-        // this.team.name="";
-    }
-
 }

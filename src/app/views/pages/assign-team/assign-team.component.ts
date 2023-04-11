@@ -5,6 +5,7 @@ import { PlayerService } from 'src/app/services/Player/player.service';
 import { TeamService } from 'src/app/services/Team/team.service';
 import {TeamResponseModel} from 'src/app/models/teamResponseModel/team-response-model';
 import { PlayerResponseModel } from 'src/app/models/playerResponseModel/player-response-model';
+import { Division } from 'src/app/models/division/division';
 
 @Component({
   selector: 'app-assign-team',
@@ -13,15 +14,18 @@ import { PlayerResponseModel } from 'src/app/models/playerResponseModel/player-r
 })
 
 export class AssignTeamComponent {
-  values = ["one","two","three"];
   searchText = '';
-  playerObj : Array<PlayerResponseModel> = [];
   teamObj: Array<TeamResponseModel> = [];
   selectedTeam : Team;
-  selectedPlayer !: Player;
+  Obj:Array<PlayerResponseModel>=[];
+  selectedPlayer !: PlayerResponseModel;
+  singlePlayer !: Player
+  totalObjects!: number
   
   constructor( private teamService : TeamService, private service: PlayerService){
     this.selectedTeam=new Team();
+    this.singlePlayer=new Player();
+    this.AllPlayers();
     // this.Team1 = new Team();
     // this.Team1.id=1;
     // this.Team1.name="Karachi Kings"
@@ -34,45 +38,77 @@ export class AssignTeamComponent {
       this.teamObj = res.data;
       console.log(this.teamObj);
     });
-      this.service.getPlayerList().subscribe(res=>{
-        for(let playerObject of res.data){
-          if(playerObject.teamName == null){
-            this.playerObj = playerObject;
+
+    //this.AllPlayers();
+  }
+
+  AllPlayers(){
+    this.service.getPlayerList().subscribe(res=>{
+      //console.log(res);
+     // this.Obj = res.data;
+      // this.totalObjects = res.totalSize;
+
+      for(let value of res.data){
+        if(value.teamName == null){
+          this.Obj.push(value);
+          if(value.isCaptain == "TRUE"){
+            value.isCaptain = "Captain"
+          }else if(value.isCaptain == "FALSE") {
+            value.isCaptain = "Player"
           }
         }
-        console.log(this.playerObj);
+        
+      }
+      console.log(this.Obj);
     });
-     
   }
 
   myFunc(selTeam : Team){
-    console.log(selTeam);
+    console.log(selTeam._id);
+    for(let value of this.teamObj){
+      if(value.id == selTeam._id){
+        selTeam._name = value.name;
+      }
+    }
   }
 
   
   //for view modal
   public visible = false;
+  public selectedPlayerIndex = 0;
 
-  toggleModal(player: Player) {
+  toggleModal(player: PlayerResponseModel,playerIndex: number) {
     this.visible = !this.visible;
-    console.log(player);
+    for(let value of this.Obj){
+      if(player.id == value.id){
+        this.singlePlayer.id=value.id;
+        this.singlePlayer.team = new Team();
+        this.singlePlayer.team._id = this.selectedTeam._id;
+        console.log("playerIndex"+playerIndex);
+        this.selectedPlayerIndex=playerIndex;
+      }
+    }
     this.selectedPlayer=player;
-    console.log(this.selectedPlayer)
+    console.log(player);
+    console.log("selected player: "+this.singlePlayer.team);
+    console.log(JSON.stringify(this.singlePlayer));
+    //console.log("selectedTeam"+this.selectedTeam)
+    
+    // console.log(this.selectedPlayer)
   }
 
-  toggleModalAgain(myPlayer : Player) {
-    console.log("selectedTeam"+this.selectedTeam._name)
+  toggleModalAgain(myPlayer : PlayerResponseModel) {
+    console.log("selectedTeam"+this.selectedTeam._id)
+    console.log(JSON.stringify(this.singlePlayer));
 
-    if(myPlayer.team == null){
-      myPlayer.team = new Team();
-      myPlayer.team=this.selectedTeam;
-    }
-    console.log(myPlayer);
-    this.service.addTeam(myPlayer).subscribe(res =>{
-    console.log(res);
+    this.service.addTeam(this.singlePlayer).subscribe(res =>{
+      console.log(res);
+      console.log("hi");
     });
-    console.log(myPlayer);
+    delete this.Obj[this.selectedPlayerIndex];
     this.visible = !this.visible; //for modal
+    console.log(myPlayer);
+   
   }
 
   handleLiveDemoChange(event: any) {
