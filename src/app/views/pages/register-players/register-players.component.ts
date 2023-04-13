@@ -20,7 +20,7 @@ export class RegisterPlayersComponent {
 
   constructor(private router: Router , private service: PlayerService, private serviceDivision: DivisionService){ //dependency injection -- using service in constructor - private variable makes it accessibe thorugh out the class
     this.playerObj = new Player();
-    this.playerObj.playerSkills=new PlayerSkills();
+    this.playerObj.playerSkills=new PlayerSkills()
     this.playerObj.isCaptain="0";
     this.playerObj.status="1";
     this.selectedDivision = new Division();
@@ -41,6 +41,12 @@ export class RegisterPlayersComponent {
     console.log("Hello");
     console.log(div.id);
     if(div.id==-1){
+      this.toggleModal();
+    }
+  }
+
+  addNewDivision(value : number){
+    if(value==-1){
       this.toggleModal();
     }
   }
@@ -79,6 +85,7 @@ export class RegisterPlayersComponent {
     console.log(division);
     this.serviceDivision.addDivision(division).subscribe(res=>{
     console.log(res);
+    //this.selectedDivision.id=res.data.id;
    
       // if(res.isError==false){
       //   alert("Player "+res.data.firstName+" "+res.data.lastName+ " added successfully");

@@ -35,7 +35,7 @@
                             <th class="text-center">Division</th>
                             <th class="text-center">Age</th>
                             <th class="text-center">Status</th>
-
+                            <th class="text-center">Skill</th>
 
                             <th></th>
                             <th></th>
@@ -43,7 +43,7 @@
                     </thead>
                     <tbody>
                         <!-- | search: searchText" -->
-                        <tr *ngFor="let p of Obj | search: searchText">
+                        <tr *ngFor="let p of playersObj | search: searchText">
                             <ng-container *ngIf="p != undefined">
                                 <td></td>
                                 <td class="text-center">
@@ -54,7 +54,7 @@
                                     <div>{{ p.lastName }}</div>
                                 </td>
                                 <td class="text-center">
-                                    <div>{{ p.divisionName }}</div>
+                                    <div>{{ p.division.divisionName }}</div>
                                 </td>
                                 <td class="text-center">
                                     <div>{{ p.age }}</div>
@@ -62,9 +62,12 @@
                                 <td class="text-center">
                                     <div>{{ p.status }}</div>
                                 </td>
+                                <td class="text-center">
+                                    <div>{{ p.playerSkills.skill }}</div>
+                                </td>
                                 <td></td>
                                 <td>
-                                    <button (click)="toggleModal(p,Obj.indexOf(p))" style="background-color:transparent; border: transparent;" cButton>
+                                    <button (click)="toggleModal(p)" style="background-color:transparent; border: transparent;" cButton>
                                     <!-- <i class="fa fa-eye "></i> -->
                                     <!-- <i class="cil-eye"></i> -->
                                     <img src="assets/img/brand/eye.png" width="20" height="20">
@@ -83,7 +86,7 @@
 
 <c-modal id="liveDemoModal" alignment="center" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
     <c-modal-header>
-        <h4 *ngIf="visible" cModalTitle>Fooseball Player: {{selectedPlayer.firstName}}</h4>
+        <h4 *ngIf="visible" cModalTitle>Fooseball Player: {{playerSelected.firstName}}</h4>
         <button (click)="toggleModalAgain_close()" cButtonClose></button>
     </c-modal-header>
     <c-modal-body>
@@ -92,41 +95,20 @@
             <img src="assets/img/brand/athlete.png" width="150" height="150" alt="Picture of Theodore Roosevelt">
         </div>
         <div>
-            <h2 *ngIf="visible">{{selectedPlayer.firstName}}</h2>
-            <h5 *ngIf="visible"><i>{{selectedPlayer.skill}}</i></h5>
+            <h2 *ngIf="visible">{{playerSelected.firstName}}</h2>
+            <h5 *ngIf="visible"><i>{{playerSelected.playerSkills.skill}}</i></h5>
         </div>
 
         <br>
-        <h6 *ngIf="visible">Are you sure you want to add <b>{{selectedPlayer.firstName}}</b> to <b>{{selectedTeam._name}} ?</b></h6>
-        <!-- <div class="row">
-            <div class="column">
-                <div class="details">
-                    <div class="rating">
-                        <h6 class="primary-text"> 15 </h6>
-                        <h6 class="secondary-text"> Matches </h6>
-                    </div>
-                </div>
-            </div>
-            <div class="column">
-                <div class="details">
-                    <div class="rating">
-                        <h6 class="primary-text"> 18 </h6>
-                        <h6 class="secondary-text"> Points </h6>
-                    </div>
-                </div>
-            </div>
-            <div class="column">
-                <div class="details">
-                    <div class="rating">
-                        <h6 class="primary-text"> 18th </h6>
-                        <h6 class="secondary-text"> Rank </h6>
-                    </div>
-                </div>
-            </div>
-        </div> -->
+        <h6 *ngIf="visible">Are you sure you want to add <b>{{playerSelected.firstName}}</b> to <b>{{selectedTeam._name}} ?</b></h6>
+        <ng-container *ngIf="onlyOneCheckbox == true">
+            {{onlyOneCheckbox}} {{isCapt}}
+            <input type="checkbox" id="captain" name="captain" value="HELLO" [(ngModel)]="isCapt" [ngModelOptions]="{standalone: true}">
+            <label for="captain">&nbsp;Make Captain</label><br>
+        </ng-container>
     </c-modal-body>
     <c-modal-footer>
-        <button (click)="toggleModalAgain(selectedPlayer)" cButton color="primary"> 
+        <button (click)="toggleModalAgain(playerSelected)" cButton color="primary"> 
         Add
       </button>
 
