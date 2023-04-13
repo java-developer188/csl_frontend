@@ -18,30 +18,34 @@
                 <label cLabel for="Age">Age</label>
                 <input cFormControl id="Age" type="number" [(ngModel)]="playerObj.age" [ngModelOptions]="{standalone: true}">
             </c-col>
+            <!--  <c-col [md]="12"> -->
+            <!--<label cLabel for="">Choose Division</label>
+            </c-col> -->
             <c-col [md]="9" *ngIf="isSelectedDiv == false">
                 <label cLabel for="">Choose Division</label>
                 <select cSelect id="autoSizingSelect" [(ngModel)]="selectedDivision.id" (change)="myFunction(selectedDivision)" [ngModelOptions]="{standalone: true}">
-                    <option value="Select Division" [selected] = "true">Select Division</option>
-                    <option *ngFor="let value of Obj" value="{{value.id}}" >{{value.divisionName}}</option>
-                </select>
+                        <option value="Select Division" value="-1" selected disabled>Select Division</option>
+                        <option *ngFor="let value of Obj" value="{{value.id}}" >{{value.divisionName}}</option>
+                    </select>
             </c-col>
             <c-col [md]="9" *ngIf="isSelectedDiv == true">
                 <label cLabel for="">Choose Division</label>
                 <select cSelect id="autoSizingSelect" [(ngModel)]="selectedDivision.id" (change)="myFunction(selectedDivision)" [ngModelOptions]="{standalone: true}">
-                    <option value="Select Division" >Select Division</option>
-                    <option *ngFor="let value of Obj" value="{{value.id}}" [selected] = "true" >{{value.divisionName}}</option>
-                </select>
+                        <option value="Select Division" >Select Division</option>
+                        <option *ngFor="let value of Obj" value="{{value.id}}" [selected] = "true" >{{value.divisionName}}</option>
+                    </select>
             </c-col>
             <c-col [md]="3">
-                <label cLabel for="btndiv" style="font-size: 10px;">Division not found?</label>
-                <div>
-                    <button id="btndiv" (click)="addNewDivision(-1)" cButton color="primary">
-                Add new division
-              </button>
+                <div class="row mb-2"></div>
+                <div class="row mb-2"></div>
+                <div class="row mb-2"></div>
+                <div class="row mb-2"></div>
+                <div style="text-align: right;">
+                    <button class="w-100" id="btndiv" (click)="addNewDivision()" cButton color="secondary">
+                    Add new division
+                  </button>
                 </div>
             </c-col>
-
-
             <c-col [xs]="10">
                 <fieldset class="row mb-3">
                     <legend cLabel="col" cCol [sm]="2" class="pt-0">Player Type</legend>

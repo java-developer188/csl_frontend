@@ -24,6 +24,7 @@ export class RegisterPlayersComponent {
     this.playerObj.isCaptain="0";
     this.playerObj.status="1";
     this.selectedDivision = new Division();
+    this.selectedDivision.id=-1;
     this.isSelectedDiv = false;
     ///console.log(this.isSelectedDiv);
     
@@ -40,19 +41,19 @@ export class RegisterPlayersComponent {
   myFunction(div : Division){
     console.log("Hello");
     console.log(div.id);
+    this.selectedDivision.id=div.id;
     if(div.id==-1){
       this.toggleModal();
     }
   }
 
-  addNewDivision(value : number){
-    if(value==-1){
-      this.toggleModal();
-    }
+  addNewDivision(){
+    this.toggleModal();
   }
 
   registerPlayer(){ 
-    this.playerObj.division = this.selectedDivision;
+    this.playerObj.division = new Division();
+    this.playerObj.division.id= this.selectedDivision.id;
     console.log(JSON.stringify(this.playerObj));
     this.service.registerPlayer(this.playerObj).subscribe(res=>{
       console.log(res);
@@ -84,7 +85,8 @@ export class RegisterPlayersComponent {
     console.log(this.isSelectedDiv+"newest division selected");
     console.log(division);
     this.serviceDivision.addDivision(division).subscribe(res=>{
-    console.log(res);
+      console.log(res);
+      this.selectedDivision.id=res.data.id;
     //this.selectedDivision.id=res.data.id;
    
       // if(res.isError==false){
