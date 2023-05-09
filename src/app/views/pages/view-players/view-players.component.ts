@@ -54,4 +54,6 @@ export class ViewPlayersComponent {
   handleLiveDemoChange(event: any) {
     this.visible = event;
   }
+
+  
 }

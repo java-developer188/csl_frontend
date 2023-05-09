@@ -48,6 +48,7 @@ import {
 } from '@coreui/angular';
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
+// import { TournamentComponent } from './models/tournament/tournament/tournament.component';
 // import { SearchPipe } from './search-pipe/search.pipe';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {

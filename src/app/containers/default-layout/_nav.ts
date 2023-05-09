@@ -11,6 +11,17 @@ export const navItems: INavData[] = [
     title: true
   },
   {
+    name: 'Tournaments',
+    url: '/base',
+    iconComponent: { name: 'cil-people' },
+    children: [
+      {
+        name: 'Add Tournament',
+        url: 'registerTournament'
+      }
+    ]
+  },
+  {
     name: 'Teams',
     url: '/base',
     iconComponent: { name: 'cil-people' },

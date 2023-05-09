@@ -45,14 +45,16 @@ export class AssignTeamComponent {
       //new appraoch
       this.playerResponseModelIntoPlayer();
     });
-
     //this.AllPlayers();
   }
 
-  //new approach method
+  /* -------------------------- Calling Get Player API --------------------------------- */
+  /* ---------- The response model is transformed into the player object --------------- */
   public playerResponseModelIntoPlayer(){
+    /*-------- it will have all the players which have no team assigned ---------------- */
     this.playersObj=[];
     this.service.getPlayerList().subscribe(res=>{
+      /*------------ saving player's repsonse model in a player Obj --------------------- */
       for(let value of res.data){
         let aPlayer = new Player();
         aPlayer.id=value.id;
@@ -70,44 +72,19 @@ export class AssignTeamComponent {
         aPlayer.team._name=value.teamName;
         aPlayer.division=new Division();
         aPlayer.division.divisionName=value.divisionName;
-
-        if(value.isCaptain == "TRUE" && value.teamName != null ){
-          for(let team of this.teamObj){
-            if(value.teamName == team.name){
-              this.setTeamCaptObj.add(team.id);
-            }
-          }
-        }
+        /* --------- saving the players in player Obj which have no team assigned -------- */
         if(value.teamName == null)
           this.playersObj.push(aPlayer);
+
+        /* --------------------- saving teams with captains in a hashset ------------------ */
+        this.getTeamsWithCaptains(value);
       }
-    })
-    
+    })  
   }
 
-  AllPlayers(){
-    this.service.getPlayerList().subscribe(res=>{
-     this.allPlayersObj = res.data;
-      // this.totalObjects = res.totalSize;
-      for(let value of res.data){
-        if(value.teamName == null){
-          this.Obj.push(value);
-          if(value.isCaptain == "TRUE"){
-            value.isCaptain = "Captain"
-          }else if(value.isCaptain == "FALSE") {
-            value.isCaptain = "Player"
-          }
-        }  
-      }
-      console.log(this.Obj);
-      //for make captain checkbox
-      //this.changeCheckbox();
-      // for(let value of this.getTeamsWithCaptains){
-      //   console.log(value);
-      // }
-    });
-  }
 
+
+  /*------ it will be triggered whenever the selected item is changed (selected team) ------ */
   myFunc(selTeam : Team){
     console.log("selected Team id"+selTeam._id);
     for(let value of this.teamObj){
@@ -123,65 +100,20 @@ export class AssignTeamComponent {
   public visible = false;
   public selectedPlayerIndex = 0;
 
+  /* ------------------------ When Assign Team button is clicked -------------------------- */
   toggleModal(player: Player) {
+    /* ------- Show the Modal -------- */
     this.visible = !this.visible;
-    //this.selectedTeam=new Team();
-    // this.singlePlayer=new Player();
-    
-    
-    // for(let value of this.Obj){
-    //   if(player.id == value.id){
-    //     this.singlePlayer.id=value.id;
-    //     this.singlePlayer.team = new Team();
-    //     this.singlePlayer.team._id = this.selectedTeam._id;
-    //     console.log("playerIndex"+playerIndex);
-    //     this.selectedPlayerIndex=playerIndex;
-    //   }
-      
-    // }
-    // this.selectedPlayer=player;
-    // this.changeCheckbox();
-    // // this.Obj = [];
-    // // this.AllPlayers();
-    // // //for make captain checkbox
-    // //this.onlyOneCheckbox=true;
-    // // for(let value of this.getTeamsWithCaptains){
-    // //   if(value == this.selectedTeam._id){
-    // //     this.onlyOneCheckbox = false;
-    // //   }
-    // // }
-    // //checkings
-    // console.log(player);
-    // console.log("selected player: "+this.singlePlayer.team);
-    // console.log(JSON.stringify(this.singlePlayer));
-    // console.log("selectedTeam"+this.selectedTeam)
-    
-    // console.log(this.selectedPlayer)
-
-    //new approach
     console.log(JSON.stringify(player));
+    /* ------ Creating an object for a single player ------- */
+    /* -- that is being selected to be added to the team -- */
     this.playerSelected=new Player();
     this.playerSelected = player;
   }
 
+  /*--------------------- On Clicking Assign button ------------------------------------ */
   toggleModalAgain(myPlayer : Player) {
-
     console.log("selectedTeam"+this.selectedTeam._id)
-    // console.log(JSON.stringify(this.singlePlayer));
-    // if(this.singlePlayer.isCaptain){
-    //   this.singlePlayer.isCaptain = "TRUE"
-    // }
-    // this.service.addTeam(this.singlePlayer).subscribe(res =>{
-    //   console.log(res);
-    //   console.log("hi");
-    // });
-    // this.Obj = [];
-    // this.allPlayersObj=[];
-    // this.AllPlayers();
-    // delete this.Obj[this.selectedPlayerIndex];
-    //console.log(myPlayer);
-    //this.visible = !this.visible; //for modal
-   
     //new approach
     myPlayer = new Player();
     myPlayer.id=this.playerSelected.id;
@@ -194,9 +126,11 @@ export class AssignTeamComponent {
     console.log(JSON.stringify(myPlayer));
     this.service.addTeam(myPlayer).subscribe(res =>{
       console.log(res);
-      this.playerResponseModelIntoPlayer();
+      //this.playerResponseModelIntoPlayer();
     });
+    this.isCapt=false;
     this.visible = !this.visible; //for modal
+
   }
 
   handleLiveDemoChange(event: any) {
@@ -207,31 +141,21 @@ export class AssignTeamComponent {
     this.visible = !this.visible;
   }
 
-  public getTeamsWithCaptains(data : any) : Set<number>{
-    let setTeamCaptObj = new Set<number>();
-    for(let value of data){
-      if(value.isCaptain == "TRUE" && value.teamName != null ){
+  /* ------------ saving team ids which have captain in the hash set */
+  public getTeamsWithCaptains(value : any) {
+      if(value.isCaptain == "TRUE" && value.teamName != null){
         for(let team of this.teamObj){
           if(value.teamName == team.name){
-            setTeamCaptObj.add(team.id);
+            this.setTeamCaptObj.add(team.id);
           }
         }
       }
-    }
-    return setTeamCaptObj;
   } 
 
-  public changeCheckbox(data : any){
-    this.onlyOneCheckbox=true;
-      for(let value of this.getTeamsWithCaptains(data)){
-        console.log(value);
-        if(value == this.selectedTeam._id){
-          this.onlyOneCheckbox = false;
-        }
-      }
-  }
-
-  //new approach
+  /* ---------- Checking if the selected Team has captain or not  ---------- */
+  /* ---------- If the selected Team is in the hashset (hashset has all the teams with captain)  ---------- */
+  /* ---------- then uncheck the captain checkbox  ---------- */
+  /* ---------- Initially the captain checkbox is checked ---------- */
   public teamsAndCaptain(){
     this.onlyOneCheckbox=true;
       for(let value of this.setTeamCaptObj){
@@ -244,6 +168,37 @@ export class AssignTeamComponent {
 
   }
 
+  // public changeCheckbox(data : any){
+  //   this.onlyOneCheckbox=true;
+  //     for(let value of this.getTeamsWithCaptains(data)){
+  //       console.log(value);
+  //       if(value == this.selectedTeam._id){
+  //         this.onlyOneCheckbox = false;
+  //       }
+  //     }
+  // }
   
+    // AllPlayers(){
+  //   this.service.getPlayerList().subscribe(res=>{
+  //    this.allPlayersObj = res.data;
+  //     // this.totalObjects = res.totalSize;
+  //     for(let value of res.data){
+  //       if(value.teamName == null){
+  //         this.Obj.push(value);
+  //         if(value.isCaptain == "TRUE"){
+  //           value.isCaptain = "Captain"
+  //         }else if(value.isCaptain == "FALSE") {
+  //           value.isCaptain = "Player"
+  //         }
+  //       }  
+  //     }
+  //     console.log(this.Obj);
+  //     //for make captain checkbox
+  //     //this.changeCheckbox();
+  //     // for(let value of this.getTeamsWithCaptains){
+  //     //   console.log(value);
+  //     // }
+  //   });
+  // }
 
 }

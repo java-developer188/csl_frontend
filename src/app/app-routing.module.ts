@@ -10,6 +10,8 @@ import { RegisterPlayersComponent } from './views/pages/register-players/registe
 import { RegisterTeamsComponent } from './views/pages/register-teams/register-teams.component';
 import { ViewPlayersComponent } from './views/pages/view-players/view-players.component';
 import { AssignTeamComponent } from './views/pages/assign-team/assign-team.component';
+import { RegisterTournamentComponent } from './views/pages/register-tournament/register-tournament.component';
+import { RegisterSportComponent } from './views/pages/register-sport/register-sport.component';
 
 const routes: Routes = [
 
@@ -49,6 +51,17 @@ const routes: Routes = [
       {
         path:'assignTeam',
         component: AssignTeamComponent,
+        pathMatch: 'full'
+      },
+      {
+        path:'registerTournament',
+        component: RegisterTournamentComponent,
+        pathMatch: 'full'
+      }
+      ,
+      {
+        path:'registerSport',
+        component: RegisterSportComponent,
         pathMatch: 'full'
       }
       

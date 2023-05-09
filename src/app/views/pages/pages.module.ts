@@ -14,6 +14,8 @@ import { AssignTeamComponent } from './assign-team/assign-team.component';
 import { SearchPipe } from 'src/app/search-pipe/search.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { RegisterTournamentComponent } from './register-tournament/register-tournament.component';
+import { RegisterSportComponent } from './register-sport/register-sport.component';
 // import { RegisterTeamComponent } from './register-team/register-team.component';
 // import { FooseballTeamComponent } from './Teams/fooseball-team/fooseball-team.component';
 // import { CricketTeamComponent } from './teams/cricket-team/cricket-team.component';
@@ -29,6 +31,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ViewPlayersComponent,
     AssignTeamComponent,
     SearchPipe,
+    RegisterTournamentComponent,
+    RegisterSportComponent,
   ],
   imports: [
     CommonModule,
